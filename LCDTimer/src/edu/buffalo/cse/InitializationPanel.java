@@ -252,8 +252,19 @@ public class InitializationPanel extends JDialog {
       endLabels.add(lblCountdownEnd);
     }
     {
-      SpinnerDateModel timeModel = new SpinnerDateModel();
-      timeModel.setCalendarField(Calendar.SECOND);
+      Calendar cal = Calendar.getInstance();
+      if (rowToAdd == 0) {
+        cal.add(Calendar.HOUR, 1);
+      } else {
+        JSpinner nextSpinner = endTimes.get(rowToAdd - 1);
+        Date nextTime = (Date) nextSpinner.getValue();
+        cal.setTimeInMillis(nextTime.getTime() + 60000);
+      }
+      Calendar latest = Calendar.getInstance();
+      latest.set(Calendar.HOUR_OF_DAY, 23);
+      latest.set(Calendar.MINUTE, 59);
+      latest.set(Calendar.SECOND, 59);
+      SpinnerDateModel timeModel = new SpinnerDateModel(cal.getTime(), null, latest.getTime(), Calendar.SECOND);
       JSpinner timeSpinner = new JSpinner(timeModel);
       JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "hh:mm:ss a");
       timeSpinner.setEditor(timeEditor);
