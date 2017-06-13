@@ -201,9 +201,9 @@ public class InitializationPanel extends JDialog {
         JButton nextButton = new JButton("Next >");
         nextButton.setActionCommand("Next >");
         nextButton.addActionListener(e -> {
+          dispose();
           LCDTimer app = new LCDTimer(updateTimes, endTimes, showSeconds);
           app.setVisible(true);
-          dispose();
         });
         buttonPane.add(nextButton, BorderLayout.EAST);
         getRootPane().setDefaultButton(nextButton);

@@ -57,6 +57,7 @@ public class LCDTimer extends JFrame implements ActionListener {
     contentPane.add(countdown, gbcCountdown);
     long now = currentTime();
     long timeRemaining = millisRemaining(now);
+    timeRemaining = Math.max(timeRemaining, 0);
     int diffHours = hoursRemaining(timeRemaining);
     hours = new TimeUnitPanel(false);
     hours.updateTime(diffHours);
@@ -91,8 +92,10 @@ public class LCDTimer extends JFrame implements ActionListener {
     gbcSeconds.weighty = 1.0;
     contentPane.add(seconds, gbcSeconds);
     countdown.addActionListener(this);
-    countdown.startCountdown(countdowns.get(0).getSecondsUntilUpdate());
     seconds.active(countdowns.get(0).showSeconds());
+    if (timeRemaining > 0) {
+      countdown.startCountdown(countdowns.get(0).getSecondsUntilUpdate());
+    }
   }
 
   private int secondsRemaining(long timeRemaining) {
