@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -12,6 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class CountdownPanel extends JPanel {
+
+  public class SizeChangeListener extends ComponentAdapter {
+
+    @Override
+    public void componentResized(ComponentEvent arg0) {
+      super.componentResized(arg0);
+      // Trash the current buffer and restart so that we are using the new size.
+      buffer = null;
+    }
+  }
 
   private long totalCountdownTime;
   private float progress;
@@ -24,6 +36,7 @@ public class CountdownPanel extends JPanel {
    */
   public CountdownPanel() {
     listeners = new ArrayList<>();
+    addComponentListener(new SizeChangeListener());
   }
 
   public void startCountdown(int secondsToCountDown) {
