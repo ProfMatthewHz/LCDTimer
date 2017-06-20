@@ -43,12 +43,11 @@ public class InitializationPanel extends JDialog {
     @Override
     public void stateChanged(ChangeEvent e) {
       Date updatedTime = (Date) mySpinner.getValue();
-      long timeOfDay = (updatedTime.getTime() - (updatedTime.getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
+      long timeOfDay = updatedTime.getTime() % (24 * 60 * 60 * 1000);
       for (int i = myLocation + 1; i < endTimes.size(); i++ ) {
         JSpinner nextSpinner = endTimes.get(i);
         Date nextTime = (Date) nextSpinner.getValue();
-        long nextTimeOfDay = (nextTime.getTime() - (updatedTime.getTimezoneOffset() * 60 * 1000)) %
-                             (24 * 60 * 60 * 1000);
+        long nextTimeOfDay = nextTime.getTime() % (24 * 60 * 60 * 1000);
         if (timeOfDay < nextTimeOfDay) {
           break;
         }
@@ -260,10 +259,12 @@ public class InitializationPanel extends JDialog {
         Date nextTime = (Date) nextSpinner.getValue();
         cal.setTimeInMillis(nextTime.getTime() + 60000);
       }
+
       Calendar latest = Calendar.getInstance();
       latest.set(Calendar.HOUR_OF_DAY, 23);
       latest.set(Calendar.MINUTE, 59);
       latest.set(Calendar.SECOND, 59);
+      // System.err.println(earliest.getTime() + " --> " + cal.getTime() + " --> " + latest.getTime());
       SpinnerDateModel timeModel = new SpinnerDateModel(cal.getTime(), null, latest.getTime(), Calendar.SECOND);
       JSpinner timeSpinner = new JSpinner(timeModel);
       JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "hh:mm:ss a");
