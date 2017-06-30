@@ -129,13 +129,7 @@ public class LCDTimer extends JFrame implements ActionListener {
     CountdownPanel cp = (CountdownPanel) (ae.getSource());
     long now = currentTime();
     long timeRemain = millisRemaining(now);
-    int hoursLeft = hoursRemaining(timeRemain);
-    int minutesLeft = minutesRemaining(timeRemain);
-    int secondsLeft = secondsRemaining(timeRemain);
-    int timeLeft = secondsLeft;
-    timeLeft += minutesLeft * 60;
-    timeLeft += hoursLeft * 3600;
-    if (timeLeft <= 0) {
+    if (timeRemain <= 1000) {
       hours.updateTime(0);
       minutes.updateTime(0);
       seconds.updateTime(0);
@@ -143,10 +137,20 @@ public class LCDTimer extends JFrame implements ActionListener {
       while (now > countdowns.get(0).getDurationEnd()) {
         countdowns.remove(0);
       }
+      if ((timeRemain / 1000) < countdowns.get(0).getSecondsUntilUpdate()) {
+        timeRemain = countdowns.get(0).getSecondsUntilUpdate() * 1000;
+      }
+      int hoursLeft = hoursRemaining(timeRemain);
+      int minutesLeft = minutesRemaining(timeRemain);
+      int secondsLeft = secondsRemaining(timeRemain);
+      int timeLeft = secondsLeft;
+      timeLeft += minutesLeft * 60;
+      timeLeft += hoursLeft * 3600;
       hours.updateTime(hoursLeft);
       minutes.updateTime(minutesLeft);
       seconds.updateTime(secondsLeft);
-      cp.startCountdown(countdowns.get(0).getSecondsUntilUpdate());
+      int updateTime = Math.min(timeLeft, countdowns.get(0).getSecondsUntilUpdate());
+      cp.startCountdown(updateTime);
     }
   }
 }
