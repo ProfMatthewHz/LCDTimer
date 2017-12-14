@@ -78,6 +78,15 @@ public class LCDDigitPanel extends JPanel {
    */
   private boolean drawVisible;
 
+  /** Usable width of the panel; used to draw the segments */
+  private int usableWidth;
+
+  /** Usable height of the panel; used to draw the segments */
+  private int usableHeight;
+
+  /** Padding above and below the digit to keep the window looking good */
+  private int paddingHeight;
+
   /** Create a new panel using the default digit to be displayed. */
   public LCDDigitPanel() {
     super();
@@ -85,6 +94,22 @@ public class LCDDigitPanel extends JPanel {
     digit = LCDDigit.EIGHT;
     setBackground(LCDAppColors.BACKGROUND_COLOR);
     drawVisible = true;
+
+  }
+
+  @Override
+  public void setBounds(int x, int y, int width, int height) {
+    super.setBounds(x, y, width, height);
+    usableWidth = width;
+    if (((width * 2) + (width / 2)) < height) {
+      usableHeight = (width * 2) + (width / 2);
+      paddingHeight = (height - usableHeight) / 2;
+    } else {
+      usableHeight = height;
+      paddingHeight = 0;
+    }
+    System.err.println("Width = " + width + "\tHeight = " + height + "\tUsable Height = " + usableHeight +
+                       "\tPadding Height= " + paddingHeight);
   }
 
   /**
@@ -120,23 +145,21 @@ public class LCDDigitPanel extends JPanel {
     super.paintComponent(g);
     if (drawVisible) {
       Graphics2D g2 = (Graphics2D) g;
-      int panelWidth = getWidth();
-      int panelHeight = getHeight();
       if (digit.isSectionOn(0)) {
         g2.setColor(LCDAppColors.ON_COLOR);
       } else {
         g2.setColor(LCDAppColors.OFF_COLOR);
       }
-      int eighthWidth = (panelWidth / 8);
+      int eighthWidth = (usableWidth / 8);
       int[] trapezoidX = new int[4];
       int[] trapezoidY = new int[4];
       trapezoidX[0] = 0;
-      trapezoidX[1] = panelWidth;
-      trapezoidX[2] = panelWidth - eighthWidth;
+      trapezoidX[1] = usableWidth;
+      trapezoidX[2] = usableWidth - eighthWidth;
       trapezoidX[3] = eighthWidth;
-      trapezoidY[0] = 0;
-      trapezoidY[1] = 0;
-      trapezoidY[2] = panelHeight / 19;
+      trapezoidY[0] = paddingHeight;
+      trapezoidY[1] = trapezoidY[0];
+      trapezoidY[2] = (usableHeight / 19) + paddingHeight;
       trapezoidY[3] = trapezoidY[2];
       g2.fillPolygon(trapezoidX, trapezoidY, 4);
 
@@ -145,9 +168,9 @@ public class LCDDigitPanel extends JPanel {
       } else {
         g2.setColor(LCDAppColors.OFF_COLOR);
       }
-      trapezoidY[0] = panelHeight;
+      trapezoidY[0] = usableHeight + paddingHeight;
       trapezoidY[1] = trapezoidY[0];
-      trapezoidY[2] = (panelHeight * 18) / 19;
+      trapezoidY[2] = ((usableHeight * 18) / 19) + paddingHeight;
       trapezoidY[3] = trapezoidY[2];
       g2.fillPolygon(trapezoidX, trapezoidY, 4);
 
@@ -160,10 +183,10 @@ public class LCDDigitPanel extends JPanel {
       trapezoidX[1] = eighthWidth;
       trapezoidX[2] = trapezoidX[1];
       trapezoidX[3] = trapezoidX[0];
-      trapezoidY[0] = panelHeight / 38;
-      trapezoidY[1] = (panelHeight * 3) / 38;
-      trapezoidY[2] = (panelHeight * 17) / 38;
-      trapezoidY[3] = (panelHeight * 18) / 38;
+      trapezoidY[0] = (usableHeight / 38) + paddingHeight;
+      trapezoidY[1] = ((usableHeight * 3) / 38) + paddingHeight;
+      trapezoidY[2] = ((usableHeight * 17) / 38) + paddingHeight;
+      trapezoidY[3] = ((usableHeight * 18) / 38) + paddingHeight;
       g2.fillPolygon(trapezoidX, trapezoidY, 4);
 
       if (digit.isSectionOn(2)) {
@@ -171,8 +194,8 @@ public class LCDDigitPanel extends JPanel {
       } else {
         g2.setColor(LCDAppColors.OFF_COLOR);
       }
-      trapezoidX[0] = panelWidth;
-      trapezoidX[1] = panelWidth - eighthWidth;
+      trapezoidX[0] = usableWidth;
+      trapezoidX[1] = usableWidth - eighthWidth;
       trapezoidX[2] = trapezoidX[1];
       trapezoidX[3] = trapezoidX[0];
       g2.fillPolygon(trapezoidX, trapezoidY, 4);
@@ -186,10 +209,10 @@ public class LCDDigitPanel extends JPanel {
       trapezoidX[1] = eighthWidth;
       trapezoidX[2] = trapezoidX[1];
       trapezoidX[3] = trapezoidX[0];
-      trapezoidY[0] = (panelHeight * 20) / 38;
-      trapezoidY[1] = (panelHeight * 21) / 38;
-      trapezoidY[2] = (panelHeight * 35) / 38;
-      trapezoidY[3] = (panelHeight * 37) / 38;
+      trapezoidY[0] = ((usableHeight * 20) / 38) + paddingHeight;
+      trapezoidY[1] = ((usableHeight * 21) / 38) + paddingHeight;
+      trapezoidY[2] = ((usableHeight * 35) / 38) + paddingHeight;
+      trapezoidY[3] = ((usableHeight * 37) / 38) + paddingHeight;
       g2.fillPolygon(trapezoidX, trapezoidY, 4);
 
       if (digit.isSectionOn(5)) {
@@ -197,8 +220,8 @@ public class LCDDigitPanel extends JPanel {
       } else {
         g2.setColor(LCDAppColors.OFF_COLOR);
       }
-      trapezoidX[0] = panelWidth;
-      trapezoidX[1] = panelWidth - eighthWidth;
+      trapezoidX[0] = usableWidth;
+      trapezoidX[1] = usableWidth - eighthWidth;
       trapezoidX[2] = trapezoidX[1];
       trapezoidX[3] = trapezoidX[0];
       g2.fillPolygon(trapezoidX, trapezoidY, 4);
@@ -212,15 +235,15 @@ public class LCDDigitPanel extends JPanel {
       int[] hexagonY = new int[6];
       hexagonX[0] = 0;
       hexagonX[1] = eighthWidth;
-      hexagonX[2] = panelWidth - eighthWidth;
-      hexagonX[3] = panelWidth;
-      hexagonX[4] = panelWidth - eighthWidth;
+      hexagonX[2] = usableWidth - eighthWidth;
+      hexagonX[3] = usableWidth;
+      hexagonX[4] = usableWidth - eighthWidth;
       hexagonX[5] = eighthWidth;
-      hexagonY[0] = (panelHeight * 19) / 38;
-      hexagonY[1] = (panelHeight * 18) / 38;
+      hexagonY[0] = ((usableHeight * 19) / 38) + paddingHeight;
+      hexagonY[1] = ((usableHeight * 18) / 38) + paddingHeight;
       hexagonY[2] = hexagonY[1];
       hexagonY[3] = hexagonY[0];
-      hexagonY[4] = (panelHeight * 20) / 38;
+      hexagonY[4] = ((usableHeight * 20) / 38) + paddingHeight;
       hexagonY[5] = hexagonY[4];
       g2.fillPolygon(hexagonX, hexagonY, 6);
     }

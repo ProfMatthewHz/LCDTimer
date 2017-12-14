@@ -44,6 +44,8 @@ public class TimeUnitPanel extends JPanel {
     gbcTensDigit.fill = GridBagConstraints.BOTH;
     if (showColon) {
       gbcTensDigit.insets = new Insets(10, 10, 10, 0);
+    } else {
+      gbcTensDigit.insets = new Insets(10, 0, 10, 0);
     }
     gbcTensDigit.gridx = currentColumn;
     gbcTensDigit.weightx = weightDigit;

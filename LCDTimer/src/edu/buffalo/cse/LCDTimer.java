@@ -66,7 +66,7 @@ public class LCDTimer extends JFrame implements ActionListener {
     gbcHours.fill = GridBagConstraints.BOTH;
     gbcHours.insets = new Insets(0, 10, 0, 0);
     gbcHours.gridx = 1;
-    gbcHours.weightx = 0.333;
+    gbcHours.weightx = 0.2857142857;
     gbcHours.weighty = 1.0;
     contentPane.add(hours, gbcHours);
     int diffMin = minutesRemaining(timeRemaining);
@@ -77,7 +77,7 @@ public class LCDTimer extends JFrame implements ActionListener {
     gbcMinutes.fill = GridBagConstraints.BOTH;
     gbcMinutes.insets = new Insets(0, 10, 0, 0);
     gbcMinutes.gridx = 2;
-    gbcMinutes.weightx = 0.333;
+    gbcMinutes.weightx = 0.3571428571;
     gbcMinutes.weighty = 1.0;
     contentPane.add(minutes, gbcMinutes);
     int diffSec = secondsRemaining(timeRemaining);
@@ -88,7 +88,7 @@ public class LCDTimer extends JFrame implements ActionListener {
     gbcSeconds.fill = GridBagConstraints.BOTH;
     gbcSeconds.insets = new Insets(0, 10, 0, 0);
     gbcSeconds.gridx = 3;
-    gbcSeconds.weightx = 0.333;
+    gbcSeconds.weightx = 0.3571428571;
     gbcSeconds.weighty = 1.0;
     contentPane.add(seconds, gbcSeconds);
     countdown.addActionListener(this);
