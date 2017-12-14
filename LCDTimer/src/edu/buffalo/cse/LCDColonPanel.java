@@ -16,12 +16,35 @@ public class LCDColonPanel extends JPanel {
    * Towards this end, this field determines if any drawing should occur.
    */
   private boolean drawVisible;
+  
+
+  /** Usable width of the panel; used to draw the segments */
+  private int usableWidth;
+
+  /** Usable height of the panel; used to draw the segments */
+  private int usableHeight;
+
+  /** Padding above and below the digit to keep the window looking good */
+  private int paddingHeight;
 
   /** Create a new panel using the default display. */
   public LCDColonPanel() {
     super();
     drawVisible = true;
     setBackground(LCDAppColors.BACKGROUND_COLOR);
+  }
+  
+  @Override
+  public void setBounds(int x, int y, int width, int height) {
+    super.setBounds(x, y, width, height);
+    usableWidth = width;
+    if (((width * 2) + (width / 2)) < height) {
+      usableHeight = (width * 2) + (width / 2);
+      paddingHeight = (height - usableHeight) / 2;
+    } else {
+      usableHeight = height;
+      paddingHeight = 0;
+    }
   }
 
   /** Method in which the current LCD digit is drawn. */
@@ -33,21 +56,19 @@ public class LCDColonPanel extends JPanel {
       g2.setColor(LCDAppColors.ON_COLOR);
       int[] diamondX = new int[4];
       int[] diamondY = new int[4];
-      int panelWidth = getWidth();
-      int panelHeight = getHeight();
-      diamondX[0] = panelWidth / 2;
-      diamondX[1] = (panelWidth * 3) / 4;
+      diamondX[0] = usableWidth / 2;
+      diamondX[1] = (usableWidth * 3) / 4;
       diamondX[2] = diamondX[0];
-      diamondX[3] = panelWidth / 4;
-      diamondY[0] = (panelHeight * 3) / 16;
-      diamondY[1] = panelHeight / 4;
-      diamondY[2] = (panelHeight * 5) / 16;
+      diamondX[3] = usableWidth / 4;
+      diamondY[0] = ((usableHeight * 3) / 16) + paddingHeight;
+      diamondY[1] = (usableHeight / 4) + paddingHeight;
+      diamondY[2] = ((usableHeight * 5) / 16) + paddingHeight;
       diamondY[3] = diamondY[1];
       g2.fillPolygon(diamondX, diamondY, 4);
 
-      diamondY[0] = (panelHeight * 11) / 16;
-      diamondY[1] = (panelHeight * 6) / 8;
-      diamondY[2] = (panelHeight * 13) / 16;
+      diamondY[0] = ((usableHeight * 11) / 16) + paddingHeight;
+      diamondY[1] = ((usableHeight * 6) / 8)+ paddingHeight;
+      diamondY[2] = ((usableHeight * 13) / 16)+ paddingHeight;
       diamondY[3] = diamondY[1];
       g2.fillPolygon(diamondX, diamondY, 4);
     }

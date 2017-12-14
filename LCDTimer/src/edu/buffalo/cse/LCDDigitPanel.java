@@ -108,8 +108,6 @@ public class LCDDigitPanel extends JPanel {
       usableHeight = height;
       paddingHeight = 0;
     }
-    System.err.println("Width = " + width + "\tHeight = " + height + "\tUsable Height = " + usableHeight +
-                       "\tPadding Height= " + paddingHeight);
   }
 
   /**
