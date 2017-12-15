@@ -10,6 +10,7 @@ import javax.swing.JPanel;
  *
  * @author Matthew Hertz
  */
+@SuppressWarnings("serial")
 public class LCDDigitPanel extends JPanel {
 
   /**

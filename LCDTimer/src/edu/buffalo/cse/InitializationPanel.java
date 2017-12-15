@@ -95,119 +95,113 @@ public class InitializationPanel extends JDialog {
     gblContentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0 };
     contentPanel.setLayout(gblContentPanel);
     addTimerRow();
-    {
-      JLabel lblRemoveLast = new JLabel("Remove Last...");
-      lblRemoveLast.setForeground(Color.BLUE);
-      GridBagConstraints gbcLblRemoveLast = new GridBagConstraints();
 
-      JLabel lblAddAnother = new JLabel("Add Another...");
-      lblAddAnother.setForeground(Color.BLUE);
-      GridBagConstraints gbcLblAddAnother = new GridBagConstraints();
+    JLabel lblRemoveLast = new JLabel("Remove Last...");
+    lblRemoveLast.setForeground(Color.BLUE);
+    GridBagConstraints gbcLblRemoveLast = new GridBagConstraints();
 
-      gbcLblRemoveLast.anchor = GridBagConstraints.ABOVE_BASELINE;
-      gbcLblRemoveLast.insets = new Insets(10, 0, 0, 5);
-      gbcLblRemoveLast.gridx = 0;
-      gbcLblRemoveLast.gridy = 1;
-      gbcLblRemoveLast.gridwidth = 2;
-      contentPanel.add(lblRemoveLast, gbcLblRemoveLast);
-      lblRemoveLast.addMouseListener(new MouseAdapter() {
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        @Override
-        public void mouseExited(MouseEvent e) {
-          // Change the font back to its original state.
-          Font currentFont = lblRemoveLast.getFont();
-          Map fontAttributes = currentFont.getAttributes();
-          fontAttributes.put(TextAttribute.UNDERLINE, -1);
-          lblRemoveLast.setFont(lblRemoveLast.getFont().deriveFont(fontAttributes));
-        }
+    JLabel lblAddAnother = new JLabel("Add Another...");
+    lblAddAnother.setForeground(Color.BLUE);
+    GridBagConstraints gbcLblAddAnother = new GridBagConstraints();
 
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        @Override
-        public void mouseEntered(MouseEvent e) {
-          Font currentFont = lblRemoveLast.getFont();
-          Map fontAttributes = currentFont.getAttributes();
-          fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-          lblRemoveLast.setFont(lblRemoveLast.getFont().deriveFont(fontAttributes));
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-          removeTimerRow();
-          gbcLblRemoveLast.gridy = updateTimes.size();
-          gbcLblAddAnother.gridy = updateTimes.size();
-          contentPanel.add(lblRemoveLast, gbcLblRemoveLast);
-          contentPanel.add(lblAddAnother, gbcLblAddAnother);
-          if (updateTimes.size() == 1) {
-            lblRemoveLast.setVisible(false);
-          }
-          pack();
-        }
-      });
-      lblRemoveLast.setVisible(false);
-
-      gbcLblAddAnother.anchor = GridBagConstraints.ABOVE_BASELINE;
-      gbcLblAddAnother.insets = new Insets(10, 0, 0, 5);
-      gbcLblAddAnother.gridx = 4;
-      gbcLblAddAnother.gridy = 1;
-      gbcLblAddAnother.gridwidth = 2;
-      contentPanel.add(lblAddAnother, gbcLblAddAnother);
-      lblAddAnother.addMouseListener(new MouseAdapter() {
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        @Override
-        public void mouseExited(MouseEvent e) {
-          // Change the font back to its original state.
-          Font currentFont = lblAddAnother.getFont();
-          Map fontAttributes = currentFont.getAttributes();
-          fontAttributes.put(TextAttribute.UNDERLINE, -1);
-          lblAddAnother.setFont(lblAddAnother.getFont().deriveFont(fontAttributes));
-        }
-
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        @Override
-        public void mouseEntered(MouseEvent e) {
-          Font currentFont = lblAddAnother.getFont();
-          Map fontAttributes = currentFont.getAttributes();
-          fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-          lblAddAnother.setFont(lblAddAnother.getFont().deriveFont(fontAttributes));
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-          addTimerRow();
-          gbcLblAddAnother.gridy = updateTimes.size();
-          gbcLblRemoveLast.gridy = updateTimes.size();
-          contentPanel.add(lblAddAnother, gbcLblAddAnother);
-          contentPanel.add(lblRemoveLast, gbcLblRemoveLast);
-          lblRemoveLast.setVisible(true);
-          pack();
-        }
-      });
-    }
-    {
-
-      JPanel buttonPane = new JPanel();
-
-      getContentPane().add(buttonPane, BorderLayout.SOUTH);
-      buttonPane.setLayout(new BorderLayout(0, 0));
-      buttonPane.setBorder(new EmptyBorder(0, 10, 5, 10));
-      {
-        JButton quitButton = new JButton("Quit");
-        quitButton.setActionCommand("Quit");
-        quitButton.addActionListener(e -> System.exit(0));
-        buttonPane.add(quitButton, BorderLayout.WEST);
+    gbcLblRemoveLast.anchor = GridBagConstraints.ABOVE_BASELINE;
+    gbcLblRemoveLast.insets = new Insets(10, 0, 0, 5);
+    gbcLblRemoveLast.gridx = 0;
+    gbcLblRemoveLast.gridy = 1;
+    gbcLblRemoveLast.gridwidth = 2;
+    contentPanel.add(lblRemoveLast, gbcLblRemoveLast);
+    lblRemoveLast.addMouseListener(new MouseAdapter() {
+      @SuppressWarnings({ "unchecked", "rawtypes" })
+      @Override
+      public void mouseExited(MouseEvent e) {
+        // Change the font back to its original state.
+        Font currentFont = lblRemoveLast.getFont();
+        Map fontAttributes = currentFont.getAttributes();
+        fontAttributes.put(TextAttribute.UNDERLINE, -1);
+        lblRemoveLast.setFont(lblRemoveLast.getFont().deriveFont(fontAttributes));
       }
-      {
-        JButton nextButton = new JButton("Next >");
-        nextButton.setActionCommand("Next >");
-        nextButton.addActionListener(e -> {
-          dispose();
-          LCDTimer app = new LCDTimer(updateTimes, endTimes, showSeconds);
-          app.setVisible(true);
-        });
-        buttonPane.add(nextButton, BorderLayout.EAST);
-        getRootPane().setDefaultButton(nextButton);
+
+      @SuppressWarnings({ "unchecked", "rawtypes" })
+      @Override
+      public void mouseEntered(MouseEvent e) {
+        Font currentFont = lblRemoveLast.getFont();
+        Map fontAttributes = currentFont.getAttributes();
+        fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblRemoveLast.setFont(lblRemoveLast.getFont().deriveFont(fontAttributes));
       }
-    }
+
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        removeTimerRow();
+        gbcLblRemoveLast.gridy = updateTimes.size();
+        gbcLblAddAnother.gridy = updateTimes.size();
+        contentPanel.add(lblRemoveLast, gbcLblRemoveLast);
+        contentPanel.add(lblAddAnother, gbcLblAddAnother);
+        if (updateTimes.size() == 1) {
+          lblRemoveLast.setVisible(false);
+        }
+        pack();
+      }
+    });
+    lblRemoveLast.setVisible(false);
+
+    gbcLblAddAnother.anchor = GridBagConstraints.ABOVE_BASELINE;
+    gbcLblAddAnother.insets = new Insets(10, 0, 0, 5);
+    gbcLblAddAnother.gridx = 4;
+    gbcLblAddAnother.gridy = 1;
+    gbcLblAddAnother.gridwidth = 2;
+    contentPanel.add(lblAddAnother, gbcLblAddAnother);
+    lblAddAnother.addMouseListener(new MouseAdapter() {
+      @SuppressWarnings({ "unchecked", "rawtypes" })
+      @Override
+      public void mouseExited(MouseEvent e) {
+        // Change the font back to its original state.
+        Font currentFont = lblAddAnother.getFont();
+        Map fontAttributes = currentFont.getAttributes();
+        fontAttributes.put(TextAttribute.UNDERLINE, -1);
+        lblAddAnother.setFont(lblAddAnother.getFont().deriveFont(fontAttributes));
+      }
+
+      @SuppressWarnings({ "unchecked", "rawtypes" })
+      @Override
+      public void mouseEntered(MouseEvent e) {
+        Font currentFont = lblAddAnother.getFont();
+        Map fontAttributes = currentFont.getAttributes();
+        fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblAddAnother.setFont(lblAddAnother.getFont().deriveFont(fontAttributes));
+      }
+
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        addTimerRow();
+        gbcLblAddAnother.gridy = updateTimes.size();
+        gbcLblRemoveLast.gridy = updateTimes.size();
+        contentPanel.add(lblAddAnother, gbcLblAddAnother);
+        contentPanel.add(lblRemoveLast, gbcLblRemoveLast);
+        lblRemoveLast.setVisible(true);
+        pack();
+      }
+    });
+
+    JPanel buttonPane = new JPanel();
+
+    getContentPane().add(buttonPane, BorderLayout.SOUTH);
+    buttonPane.setLayout(new BorderLayout(0, 0));
+    buttonPane.setBorder(new EmptyBorder(0, 10, 5, 10));
+    JButton quitButton = new JButton("Quit");
+    quitButton.setActionCommand("Quit");
+    quitButton.addActionListener(e -> System.exit(0));
+    buttonPane.add(quitButton, BorderLayout.WEST);
+
+    JButton nextButton = new JButton("Next >");
+    nextButton.setActionCommand("Next >");
+    nextButton.addActionListener(e -> {
+      dispose();
+      LCDTimer app = new LCDTimer(updateTimes, endTimes, showSeconds);
+      app.setVisible(true);
+    });
+    buttonPane.add(nextButton, BorderLayout.EAST);
+    getRootPane().setDefaultButton(nextButton);
 
   }
 

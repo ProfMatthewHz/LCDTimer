@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import edu.buffalo.cse.LCDDigitPanel.LCDDigit;
 
+@SuppressWarnings("serial")
 public class TimeUnitPanel extends JPanel {
 
   private LCDDigitPanel tensDigit;

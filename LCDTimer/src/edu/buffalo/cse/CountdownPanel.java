@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+@SuppressWarnings("serial")
 public class CountdownPanel extends JPanel {
 
   public class SizeChangeListener extends ComponentAdapter {
@@ -78,11 +79,11 @@ public class CountdownPanel extends JPanel {
   private void updateBuffer() {
     if (buffer == null) {
       int height = getHeight();
-      buffer = new BufferedImage(3, height, BufferedImage.TYPE_INT_RGB);
+      buffer = new BufferedImage(10, height, BufferedImage.TYPE_INT_RGB);
       buffer.setAccelerationPriority(1.0f);
       Graphics2D g = buffer.createGraphics();
       g.setColor(LCDAppColors.TIMER_COLOR);
-      g.fillRect(0, 0, 3, height);
+      g.fillRect(0, 0, 10, height);
     }
   }
 
