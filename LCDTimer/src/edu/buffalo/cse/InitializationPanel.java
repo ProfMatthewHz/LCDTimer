@@ -274,7 +274,7 @@ public class InitializationPanel extends JDialog {
     {
       JCheckBox chckbxShowSeconds = new JCheckBox("Show Seconds");
       chckbxShowSeconds.setFont(UIManager.getFont("Label.font"));
-      chckbxShowSeconds.setSelected(true);
+      chckbxShowSeconds.setSelected(false);
       GridBagConstraints gbcChckbxShowSeconds = new GridBagConstraints();
       gbcChckbxShowSeconds.insets = new Insets(0, 0, 5, 0);
       gbcChckbxShowSeconds.gridx = 4;

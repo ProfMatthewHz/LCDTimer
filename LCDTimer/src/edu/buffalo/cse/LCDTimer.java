@@ -69,7 +69,7 @@ public class LCDTimer extends JFrame implements ActionListener {
     gbcLabel.anchor = GridBagConstraints.BASELINE_LEADING;
     gbcLabel.insets = new Insets(0, 0, 30, 0);
     contentPane.add(label, gbcLabel);
-    
+
     CountdownPanel countdown = new CountdownPanel();
     countdown.setBackground(contentPane.getBackground());
     GridBagConstraints gbcCountdown = new GridBagConstraints();
@@ -221,8 +221,16 @@ public class LCDTimer extends JFrame implements ActionListener {
       layout.setConstraints(leftFiller, gbcLeft);
       layout.setConstraints(rightFiller, gbcRight);
       getContentPane().revalidate();
-      int updateTime = Math.min(timeLeft, countdowns.get(0).getSecondsUntilUpdate());
-      cp.startCountdown(updateTime);
+      // If we do not have a full countdown worth of time remaining, go with whatever is left
+      if (timeLeft <= countdowns.get(0).getSecondsUntilUpdate()) {
+        cp.startCountdown(timeLeft);
+      } else {
+        int updateTime = countdowns.get(0).getSecondsUntilUpdate();
+        int currentRemains = (int) (countdowns.get(0).getDurationEnd() / 1000);
+
+        cp.startCountdown(updateTime);
+
+      }
     }
   }
 }
